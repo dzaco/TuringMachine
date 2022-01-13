@@ -12,6 +12,7 @@ namespace TuringMachineApp.Machine
         public TuringMachine(string filePath)
         {
             LoadFromFile(filePath);
+            Tape = new Tape(TapeAlphabet, InputWord);
         }
 
         public char[] TapeAlphabet { get; private set; }
@@ -21,8 +22,9 @@ namespace TuringMachineApp.Machine
         public string InitialState { get; private set; }
         public string[] AcceptingStates { get; private set; }
         internal TransitionTable Transitions { get; private set; }
+        public Tape Tape { get; }
 
-        private void LoadFromFile(string filePath)
+        public void LoadFromFile(string filePath)
         {
             var lines = File.ReadLines(filePath)
                 .Select(line => line.Replace(":", "").Trim());
@@ -76,6 +78,12 @@ namespace TuringMachineApp.Machine
                         break;
                 }
             }
+        }
+
+        public  void Start()
+        {
+            Console.WriteLine("Initial Tape");
+            Console.WriteLine(Tape);
         }
     }
 }

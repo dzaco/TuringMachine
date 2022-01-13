@@ -13,6 +13,7 @@ namespace TuringMachineApp
         {
             var path = FileManager.GetFirstFile();
             var turingMachine = new TuringMachine(path);
+            turingMachine.Start();
         }
     }
 }
