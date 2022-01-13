@@ -53,6 +53,7 @@
     <Compile Include="FileManager.cs" />
     <Compile Include="Machine\Tape.cs" />
     <Compile Include="Machine\Transition.cs" />
+    <Compile Include="Machine\TransitionKey.cs" />
     <Compile Include="Machine\TransitionTable.cs" />
     <Compile Include="Machine\TuringMachine.cs" />
     <Compile Include="Program.cs" />

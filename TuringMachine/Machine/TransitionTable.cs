@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using TuringMachineApp.Machine;
 
 namespace TuringMachineApp.Machine
 {
-    internal class TransitionTable : Dictionary<Tuple<char, char>, Transition>
+    internal class TransitionTable : Dictionary<TransitionKey, Transition>
     {
         private IEnumerable<string> transitionLines;
 
@@ -13,7 +14,7 @@ namespace TuringMachineApp.Machine
             foreach(var line in transitionLines)
             {
                 var transition = new Transition(line);
-                this.Add(new Tuple<char, char>(transition.CurrentState, transition.CurrentLetter), transition);
+                this.Add(new TransitionKey(transition.CurrentState, transition.CurrentLetter), transition);
             }
         }
     }

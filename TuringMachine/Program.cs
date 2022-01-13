@@ -13,7 +13,16 @@ namespace TuringMachineApp
         {
             var path = FileManager.GetFirstFile();
             var turingMachine = new TuringMachine(path);
-            turingMachine.Start();
+            try
+            {
+                var iteration = turingMachine.Start();
+                Console.WriteLine($"Complete in {iteration} move");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Faild");
+            }
+            Console.ReadKey();
         }
     }
 }
