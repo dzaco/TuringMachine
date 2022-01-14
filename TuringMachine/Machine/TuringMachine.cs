@@ -84,7 +84,7 @@ namespace TuringMachineApp.Machine
             }
         }
 
-        public int Start()
+        public int Start(Tuple<int, int> tpl)
         {
             Console.WriteLine("Initial Tape");
             Console.WriteLine(Tape);

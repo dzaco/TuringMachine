@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileManager.cs" />
+    <Compile Include="IOStream\InputStream.cs" />
+    <Compile Include="IOStream\OutputStream.cs" />
     <Compile Include="Machine\Tape.cs" />
     <Compile Include="Machine\Transition.cs" />
     <Compile Include="Machine\TransitionKey.cs" />
@@ -63,6 +65,5 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
