@@ -27,6 +27,7 @@ namespace TuringMachineApp
         internal TransitionTable Transitions { get; private set; }
         public Tape Tape { get; }
         public char CurrentState { get; private set; }
+        public int MaxIteration { get; set; } = 2000;
 
         public void LoadFromFile(string filePath)
         {
@@ -74,7 +75,7 @@ namespace TuringMachineApp
                         }
                     case FileManager.ExpectedLine.TransitionRelationship:
                         {
-                            var transitionLines = lines.Skip(i + 1);
+                            var transitionLines = lines.Skip(i + 1).Where(line => !string.IsNullOrWhiteSpace(line));
                             this.Transitions = new TransitionTable(transitionLines);
                             return; // transition read to end of file
                         }
@@ -96,6 +97,9 @@ namespace TuringMachineApp
             
             while(true)
             {
+                if (iteration > MaxIteration)
+                    throw new IndexOutOfRangeException($"Possibility of an infinite loop. The machine has already run the maximum number of iterations ({MaxIteration}) and has not found a solution.");
+
                 if (Tape.Count % 32 == 0 && iteration > 0 && Tape.Count != promptedIterNum)
                 {
                     Console.WriteLine("Limit taśmy został przerkoczony (32 komórki)");

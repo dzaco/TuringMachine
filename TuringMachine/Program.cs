@@ -22,9 +22,12 @@ namespace TuringMachineApp
                 Console.WriteLine($"Complete in {opd.ComputationLength} move");
                 OutputStream oS = new OutputStream(opd.textToFile, opd.ComputationStatus,opd.StartWord,opd.EndWord,opd.ComputationLength);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Console.WriteLine($"Failed");
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Last word on the Tape:");
+                Console.WriteLine(turingMachine.Tape);
             }
             Console.ReadKey();
         }
