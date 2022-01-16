@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TuringMachineApp.IOStream;
 using TuringMachineApp.Machine;
 
-namespace TuringMachineApp.Machine
+namespace TuringMachineApp
 {
     public class TuringMachine
     {
@@ -16,7 +17,7 @@ namespace TuringMachineApp.Machine
             LoadFromFile(filePath);
             Tape = new Tape(TapeAlphabet, InputWord);
         }
-
+        public int status { get; set; }
         public char[] TapeAlphabet { get; private set; }
         public char[] InputAlphabet { get; private set; }
         public string InputWord { get; private set; }
@@ -84,25 +85,78 @@ namespace TuringMachineApp.Machine
             }
         }
 
-        public int Start(Tuple<int, int> tpl)
+        public OutputData Start(Tuple<int, int> tpl)
         {
             Console.WriteLine("Initial Tape");
             Console.WriteLine(Tape);
             var iteration = 0;
+            string toTxt = "";
+            string loopBreaker = "";
+            int promptedIterNum = 0;
+            
             while(true)
             {
+                if (Tape.Count % 32 == 0 && iteration > 0 && Tape.Count != promptedIterNum)
+                {
+                    Console.WriteLine("Limit taśmy został przerkoczony (32 komórki)");
+                    Console.WriteLine("Taśma zostanie rozszerzona o kolejne 32 komórki");
+                    toTxt += "Taśma zostanie rozszerzona o kolejne 32 komórki \n Taśma zostanie rozszerzona o kolejne 32 komórki \n";
+                    promptedIterNum = Tape.Count;
+                }
                 //Thread.Sleep(250);
                 if (Transitions.TryGetValue(new TransitionKey(CurrentState, Tape.Head.Value), out var transition))
                 {
-                    CurrentState = transition.StateToGo;
-                    Tape.Head.Value = transition.LetterToWrite;
-                    Tape.Move(transition.MachineHeadDirection);
-                    Console.WriteLine(CurrentState);
-                    Console.WriteLine(Tape);
-                    if (this.AcceptingStates.Contains(CurrentState))
+                    if (tpl.Item1 == 1)
                     {
-                        Console.WriteLine($"Program stoped in accepting state \'{CurrentState}\'");
-                        break;
+                        CurrentState = transition.StateToGo;
+                        Tape.Head.Value = transition.LetterToWrite;
+                        Tape.Move(transition.MachineHeadDirection);
+                        Console.WriteLine("Current state: {0}", CurrentState);
+                        Console.WriteLine(Tape);
+                        toTxt += Tape;
+                        loopBreaker = Console.ReadLine();
+                        if (this.AcceptingStates.Contains(CurrentState))
+                        {
+                            Console.WriteLine($"Program stoped in accepting state \'{CurrentState}\'");
+                            status = 1;
+                            break;
+                        }
+                    }
+                    else if (tpl.Item1 == 2)
+                    {
+                        CurrentState = transition.StateToGo;
+                        Tape.Head.Value = transition.LetterToWrite;
+                        Tape.Move(transition.MachineHeadDirection);
+                        if (iteration % tpl.Item2 == 0)
+                        {
+                            Console.WriteLine("Current state: {0}", CurrentState);
+                            Console.WriteLine(Tape);
+                        }
+                        toTxt += Tape;
+                        if (this.AcceptingStates.Contains(CurrentState))
+                        {
+                            Console.WriteLine($"Program stoped in accepting state \'{CurrentState}\'");
+                            status = 1;
+                            break;
+                        }
+                    }
+                    else if (tpl.Item1 == 3)
+                    {
+                        CurrentState = transition.StateToGo;
+                        Tape.Head.Value = transition.LetterToWrite;
+                        Tape.Move(transition.MachineHeadDirection);
+                        toTxt += Tape;
+                        if (tpl.Item2 == 2)
+                        {
+                            Console.WriteLine("Current state: {0}", CurrentState);
+                            Console.WriteLine(Tape);
+                        }
+                        if (this.AcceptingStates.Contains(CurrentState))
+                        {
+                            Console.WriteLine($"Program stoped in accepting state \'{CurrentState}\'");
+                            status = 1;
+                            break;
+                        }
                     }
                 }
                 else
@@ -110,8 +164,9 @@ namespace TuringMachineApp.Machine
 
                 iteration++;
             }
-            
-            return iteration;
+
+            OutputData oData = new OutputData(InputWord,Tape.lastSavedWord, iteration,1, toTxt);
+            return oData;
         }
     }
 }

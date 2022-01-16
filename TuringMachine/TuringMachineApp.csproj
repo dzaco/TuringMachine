@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="FileManager.cs" />
     <Compile Include="IOStream\InputStream.cs" />
+    <Compile Include="IOStream\OutputData.cs" />
     <Compile Include="IOStream\OutputStream.cs" />
     <Compile Include="Machine\Tape.cs" />
     <Compile Include="Machine\Transition.cs" />

@@ -18,9 +18,9 @@ namespace TuringMachineApp
             var turingMachine = new TuringMachine(path);
             try
             {
-                var iteration = turingMachine.Start(Tpl);
-                Console.WriteLine($"Complete in {iteration} move");
-                var outputData = new OutputStream('0',"0","0","0");
+                OutputData opd = turingMachine.Start(Tpl);
+                Console.WriteLine($"Complete in {opd.ComputationLength} move");
+                OutputStream oS = new OutputStream(opd.textToFile, opd.ComputationStatus,opd.StartWord,opd.EndWord,opd.ComputationLength);
             }
             catch (Exception)
             {

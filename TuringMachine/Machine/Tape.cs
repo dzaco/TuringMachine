@@ -16,6 +16,9 @@ namespace TuringMachineApp.Machine
 
         public char[] TapeAlphabet { get; }
         public string SourceWord { get; }
+    
+        public string lastSavedWord { get; set; }
+        
         public LinkedListNode<Char> Head { get; private set; }
 
         private void Build()
@@ -73,10 +76,11 @@ namespace TuringMachineApp.Machine
                 cell = cell.Next;
                 index++;
             }
+            lastSavedWord = "";
+            lastSavedWord = builder.ToString();
             builder.Append("\n")
                 .Append(' ', headIndex * 2)
-                .Append("^");
-
+                .Append("^.");
             return builder.ToString();
         }
     }
