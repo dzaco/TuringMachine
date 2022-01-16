@@ -16,6 +16,8 @@ namespace TuringMachineApp
             var Tpl = new InputStream().StartupConsole();
             var path = FileManager.GetFirstFile();
             var turingMachine = new TuringMachine(path);
+            Console.WriteLine("Transition Relationship Table:\n");
+            Console.WriteLine(turingMachine.Transitions);
             try
             {
                 OutputData opd = turingMachine.Start(Tpl);

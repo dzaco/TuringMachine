@@ -76,7 +76,7 @@ namespace TuringMachineApp
                     case FileManager.ExpectedLine.TransitionRelationship:
                         {
                             var transitionLines = lines.Skip(i + 1).Where(line => !string.IsNullOrWhiteSpace(line));
-                            this.Transitions = new TransitionTable(transitionLines);
+                            this.Transitions = new TransitionTable(transitionLines, this.InitialState, this.AcceptingStates);
                             return; // transition read to end of file
                         }
 
