@@ -24,6 +24,13 @@ namespace TuringMachineApp
           
                 OutputData opd = turingMachine.Start(Tpl);
                 Console.WriteLine($"Complete in {opd.ComputationLength} move");
+                var tapeExtendedCount = turingMachine.Tape.Count / 32;
+                
+                if (tapeExtendedCount == 1)
+                    Console.WriteLine($"Tape was extended once");
+                else if (tapeExtendedCount > 1)
+                    Console.WriteLine($"Tape was extended {tapeExtendedCount} times");
+
                 OutputStream oS = new OutputStream(opd.textToFile, opd.ComputationStatus,opd.StartWord,opd.EndWord,opd.ComputationLength);
             }
             catch (Exception e)

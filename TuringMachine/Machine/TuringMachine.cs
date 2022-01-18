@@ -102,9 +102,9 @@ namespace TuringMachineApp
 
                 if (Tape.Count % 32 == 0 && iteration > 0 && Tape.Count != promptedIterNum)
                 {
-                    Console.WriteLine("Limit taśmy został przerkoczony (32 komórki)");
-                    Console.WriteLine("Taśma zostanie rozszerzona o kolejne 32 komórki");
-                    toTxt += "Taśma zostanie rozszerzona o kolejne 32 komórki \n Taśma zostanie rozszerzona o kolejne 32 komórki \n";
+                    var msg = $"Limit taśmy został przerkoczony ({Tape.Count}).\n Taśma zostanie rozszerzona do {Tape.Count + 32} komórek.";
+                    Console.WriteLine(msg);
+                    toTxt += $"{msg} \n";
                     promptedIterNum = Tape.Count;
                 }
                 //Thread.Sleep(250);
@@ -169,7 +169,7 @@ namespace TuringMachineApp
                 iteration++;
             }
 
-            OutputData oData = new OutputData(InputWord,Tape.lastSavedWord, iteration,1, toTxt);
+            OutputData oData = new OutputData(InputWord,Tape.Word, iteration,1, toTxt);
             return oData;
         }
     }
