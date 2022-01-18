@@ -1,20 +1,21 @@
 alfabet tasmowy:
-ab#
+abc#
 alfabet wejsciowy:
-ab
+a
 slowo wejsciowe:
-bb
+aaaaaaaaaaaaaaaaaaaa
 stany:
-1 2 3
+1 2 3 4
 stan poczatkowy:
 1
 stany akceptujace:
-3
+4
 relacja przejscia:
-1 a 2 a P
-1 b 2 # P
-2 a 1 a L
-2 b 2 b P
-2 # 3 # L
-3 # 3 # L
-
+1 a 2 b P
+1 c 4 c L
+2 a 2 a P
+2 c 2 c P
+2 # 3 c L
+3 a 3 a L
+3 c 3 c L
+3 b 1 b P

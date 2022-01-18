@@ -14,8 +14,10 @@ namespace TuringMachineApp.IOStream
 
         public void saveToTxt(string toFile)
         {
-            if (outputText() == 1);
-            generateOutputFile(toFile);
+            if (outputText() == 1)
+            {
+                generateOutputFile(toFile);
+            }
         }
 
         public int outputText()

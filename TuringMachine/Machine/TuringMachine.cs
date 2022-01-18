@@ -150,7 +150,7 @@ namespace TuringMachineApp
                         Tape.Head.Value = transition.LetterToWrite;
                         Tape.Move(transition.MachineHeadDirection);
                         toTxt += Tape;
-                        if (tpl.Item2 == 2)
+                        if (tpl.Item2 == 1)
                         {
                             Console.WriteLine("Current state: {0}", CurrentState);
                             Console.WriteLine(Tape);

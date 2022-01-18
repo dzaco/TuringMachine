@@ -52,7 +52,7 @@ Wybierz tryb w jakim chcesz przeprowadzic symulację
             }
             else if (Convert.ToInt32(userOption) == 3)
             {
-                Console.WriteLine("\nCzy chcesz zobaczyc tylko wynik koncowy pracy maszyny? \n");
+                Console.WriteLine("\nPokaż obliczenia? \n");
                 Console.WriteLine("1 - Tak \n");
                 Console.WriteLine("2 - Nie \n");
                 String userIn = Console.ReadLine();
