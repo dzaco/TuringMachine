@@ -17,7 +17,31 @@ namespace TuringMachineApp.Machine
         public char[] TapeAlphabet { get; }
         public string SourceWord { get; }
     
-        public string lastSavedWord { get; set; }
+        public string Word
+        {
+            get
+            {
+                var builder = new StringBuilder();
+                var cell = this.First;
+                bool wordSymbolStarted = false;
+                while (cell != null)
+                {
+                    // #bbb###
+                    //     ^ 
+                    // this # starded
+                    if (cell.Value == '#' && wordSymbolStarted)
+                        break;
+
+                    if(cell.Value != '#')
+                    {
+                        wordSymbolStarted = true;
+                        builder.Append($"{cell.Value}");
+                    }
+                    cell = cell.Next;
+                }
+                return builder.ToString();
+            }
+        }
         
         public LinkedListNode<Char> Head { get; private set; }
 
@@ -76,8 +100,6 @@ namespace TuringMachineApp.Machine
                 cell = cell.Next;
                 index++;
             }
-            lastSavedWord = "";
-            lastSavedWord = builder.ToString();
             builder.Append("\n")
                 .Append(' ', headIndex * 2)
                 .Append("^.");
