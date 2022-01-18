@@ -12,24 +12,30 @@ namespace TuringMachineApp
     {
         static void Main(string[] args)
         {
-            
-            var Tpl = new InputStream().StartupConsole();
-            var path = FileManager.GetFirstFile();
-            var turingMachine = new TuringMachine(path);
-            Console.WriteLine("Transition Relationship Table:\n");
-            Console.WriteLine(turingMachine.Transitions);
+            TuringMachine turingMachine = null;
             try
             {
+                var Tpl = new InputStream().StartupConsole();
+                var path = FileManager.GetFirstFile();
+                Console.WriteLine($"Loaded file: {path}");
+                turingMachine = new TuringMachine(path);
+                Console.WriteLine("Transition Relationship Table:\n");
+                Console.WriteLine(turingMachine.Transitions);
+          
                 OutputData opd = turingMachine.Start(Tpl);
                 Console.WriteLine($"Complete in {opd.ComputationLength} move");
                 OutputStream oS = new OutputStream(opd.textToFile, opd.ComputationStatus,opd.StartWord,opd.EndWord,opd.ComputationLength);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Failed");
+                Console.WriteLine(e.GetType());
                 Console.WriteLine(e.Message);
-                Console.WriteLine("Last word on the Tape:");
-                Console.WriteLine(turingMachine.Tape);
+                
+                if(turingMachine != null && turingMachine.Tape != null)
+                {
+                    Console.WriteLine("Last word on the Tape:");
+                    Console.WriteLine(turingMachine.Tape);
+                }
             }
             Console.ReadKey();
         }

@@ -13,7 +13,7 @@ namespace TuringMachineApp.IOStream
         
         public Tuple<int, int> StartupConsole()
         {
-            string welcomeText = @"
+            string welcomeText = $@"
  _____                _              ___  ___           _     _             
 |_   _|              (_)             |  \/  |          | |   (_)            
   | | ___  _   _ _ __ _ _ __   __ _  | .  . | __ _  ___| |__  _ _ __   ___  
@@ -23,6 +23,8 @@ namespace TuringMachineApp.IOStream
                                __/ |                                        
                               |___/                                         
   
+Program załaduje automatycznie pierwszy plik .txt w aktyualnym folderze: {FileManager.ProjectPath}
+
 Wybierz tryb w jakim chcesz przeprowadzic symulację 
 (wybierz cyfre i potwierdz enterem):
 1 - Co jedna konfiguracja 

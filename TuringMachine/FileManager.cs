@@ -10,12 +10,24 @@ namespace TuringMachineApp
 {
     public static class FileManager
     {
+#if DEBUG
+        public static readonly bool IsDebug = true;
         public static string ProjectPath = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())));
+#else
+        public static readonly bool IsDebug = false;
+        public static string ProjectPath = Directory.GetCurrentDirectory();
+#endif
+
         public static string GetFirstFile()
         {
-            return Directory.GetFiles(ProjectPath)
+            var inputFile = Directory.GetFiles(ProjectPath)
                 .Where(file => Path.GetExtension(file) == ".txt")
                 .FirstOrDefault();
+
+            if (inputFile is null)
+                throw new FileNotFoundException($"There is no .txt file in folder {ProjectPath}");
+            else
+                return inputFile;
         }
 
         // not working in console app
